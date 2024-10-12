@@ -1,0 +1,21 @@
+{
+  "name": "dev-tinder",
+  "version": "1.0.0",
+  "description": "Tinder for developers",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript"
+  ],
+  "author": "Shivendra",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongoose": "^8.7.1",
+    "nodemon": "^3.1.7",
+    "validator": "^13.12.0"
+  }
+}
