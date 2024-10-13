@@ -4,8 +4,7 @@ const mongoose = require('mongoose');
 const connectDB = async () => {
     try {
         // MongoDB connection string
-        const mongoURI = 'mongodb+srv://shivendrakeshari581:GSkOBaxp0dvwWeqm@cluster0.yjpol.mongodb.net/DEvTINDER';
-
+        const mongoURI = 'mongodb+srv://gk630471:T3k1nvTVn5wHTqCN@cluster0.ek0rw.mongodb.net/DEVTINDER'
       
         await mongoose.connect(mongoURI);
 

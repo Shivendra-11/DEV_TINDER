@@ -1,44 +1,45 @@
+// router.js
 const express = require('express');
 const User = require('../models/user'); // Ensure the path is correct
-const signuprouter = express.Router(); // Keep the name as signuprouter
+const signuprouter = express.Router();
+const { validateSignup } = require("../utils/Validator"); // Correct import
+const bcrypt = require('bcrypt');
 
 // POST signup route
-signuprouter.post("/", async (req, res) => { // Remove "/signup" from here
+signuprouter.post("/", async (req, res) => {
     try {
-        // Destructure user data from the request body
+        validateSignup(req);  // Call the validation function
+    } catch (error) {
+        return res.status(400).send({ error: error.message }); // Handle validation errors
+    }
+
+    try {
         const { fname, lname, email, password, age, gender, city, phone } = req.body;
+        const hashpassword = await bcrypt.hash(password, 10);
+        
 
-        // Validate required fields
-        if (!fname || !lname || !email || !password || !age || !gender || !city || !phone) {
-            return res.status(400).send("All fields are required");
-        }
-
-        // Check if user with the same email already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).send("Email is already registered");
         }
 
-        // Create the new user
         const newUser = await User.create({
             fname,
             lname,
             email,
-            password,
+            password: hashpassword,
             age,
             gender,
             city,
             phone,
         });
 
-        // Send a success response if user creation is successful
         return res.status(201).send({ message: "User created successfully", user: newUser });
         
     } catch (error) {
         console.error(error);
-        return res.status(500).send("An error occurred while creating the user"  +error.message);
+        return res.status(500).send("An error occurred while creating the user: " + error.message);
     }
 });
 
-// Export the signup router
-module.exports = signuprouter; // Corrected to export signuprouter
+module.exports = signuprouter;
