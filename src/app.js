@@ -1,9 +1,9 @@
 const express = require('express');
 const connectDB = require("./configs/database"); // Ensure your DB config file is set up properly
-const signuprouter = require('./routes/signup'); // Ensure your path is correct
-const loginrouter = require('./routes/login'); // Ensure your path is correct
 const cookieParser = require('cookie-parser');
-const profileRouter = require('./routes/profile'); // Ensure your path is correct
+const authRouter = require('./routes/authRouter');
+const profileRouter = require('./routes/profile');
+const requestRouter = require('./routes/request');
 const app = express(); // Define the app variable here
 
 // Middleware to parse JSON body data
@@ -11,10 +11,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-// Use the signup route
-app.use('/signup', signuprouter); // Mount the signuprouter at the /signup endpoint
-app.use('/login', loginrouter); // Mount the loginrouter at the /login endpoint
-app.use('/profile', profileRouter); // Mount the profileRouter at the /profile endpoint
+// Define the routes
+app.use("/",authRouter);
+app.use("/",profileRouter);
+app.use("/",requestRouter);
+
 
 // Connect to the database and start the server
 const startServer = async () => {

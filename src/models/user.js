@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const validator = require('validator'); 
+const validator = require('validator');
+const jwt = require('jsonwebtoken'); // Import JWT
 
 const userSchema = new mongoose.Schema({
     fname: {
@@ -7,7 +8,7 @@ const userSchema = new mongoose.Schema({
         required: [true, "First name is required"],
         minlength: [2, "First name must be at least 2 characters long"],
         maxlength: [50, "First name cannot exceed 50 characters"],
-        trim: true  // Removes whitespace
+        trim: true
     },
     lname: {
         type: String,
@@ -66,6 +67,13 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true  // Automatically adds `createdAt` and `updatedAt` fields
 });
+
+// Method to generate JWT
+userSchema.methods.getJWT = async function() {
+    const user = this;  // Reference to the current user instance
+    const token = jwt.sign({ id: user._id }, "shivendra1111", { expiresIn: "1h" });
+    return token;
+}
 
 const User = mongoose.model('User', userSchema);
 

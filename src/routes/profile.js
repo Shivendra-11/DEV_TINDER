@@ -8,7 +8,7 @@ const { userAuth } = require('../middleware/auth');
 // Use cookie-parser middleware to parse cookies
 profileRouter.use(cookieParser());
 
-profileRouter.get('/', userAuth, async (req, res) => {
+profileRouter.get('/profile', userAuth, async (req, res) => {
     try {
         const user = req.user; // Access user set by userAuth middleware
         if (!user) {

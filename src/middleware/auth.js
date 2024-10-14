@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
+
 const userAuth = async (req, res, next) => {
     try {
         const { token } = req.cookies;
