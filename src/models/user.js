@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema({
         maxlength: [100, "City name cannot exceed 100 characters"],
         trim: true
     },
+    
     phone: {
         type: String,  // Changed to String for better formatting/length control
         required: [true, "Phone number is required"],
