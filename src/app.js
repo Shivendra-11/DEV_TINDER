@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const authRouter = require('./routes/authRouter');
 const profileRouter = require('./routes/profile');
 const requestRouter = require('./routes/request');
+const userRouter=require("./routes/user");
 const app = express(); // Define the app variable here
 
 // Middleware to parse JSON body data
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use("/",authRouter);
 app.use("/",profileRouter);
 app.use("/",requestRouter);
+app.use("/",userRouter);
 
 
 // Connect to the database and start the server
